@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Map Customizer - Yukiko Ishida</title>
+	<meta charset="utf-8">
+	<!-- Google maps api -->
+	<script type="text/javascript" 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9dWUuIWs1AaO_frUNzqGo7pRGtQW-Jug&libraries=places&sensor=false"
+	></script>
+	
+	<!-- jquery -->
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"
+	></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	
+
+	<!-- map features -->
+	<script type="text/javascript" src="mapFeatures.js"></script>
+	<script type="text/javascript" src="custommap.js"></script>
+	
+	
+	<style type="text/css">
+		html, body{
+			margin: 0;
+			padding: 0;
+			font-family: arial, sans-serif;
+			height: 100%;
+			width: 100%;
+		}
+		#map-canvas{
+			height: 100%;
+			width: 100%;
+		}
+		#control-panel{
+			width: 400px;
+			height: 100%;
+			position: absolute;
+			background-color: rgba(255, 255, 255, 0.8);
+			top: 0px;
+			left: 150px;
+			overflow: scroll;
+		}
+		h1, h4{
+			padding: 20px;
+			margin: 0;
+		}
+		
+		.slider{
+			width: 200px;
+		}
+    </style>
+	<script type="text/javascript">
+		$(function() {
+			
+			$( ".slider" ).slider({
+				min: -100, 
+				max: 100, 
+				value: 0, 
+				slide: function( event, ui ) {
+					var val = ui.value;
+					var styler, feature;
+					var styles;
+					//console.log('#' + event.target.id + '-label, val=' + val);
+					
+					//console.log(event.target.getAttribute('styler'));
+					styler = event.target.getAttribute('styler');
+					
+					//console.log(event.target.getAttribute('feature'));
+					feature = event.target.getAttribute('feature');
+										
+					var temp = {};
+					temp[styler] = val;
+					
+					styles = [{
+						featureType: feature,
+						stylers: [ temp ]
+					}];
+					// console.log(styles);
+					map.setOptions({'styles': styles });
+					
+					// console.log('#' + feature+'-'+styler + '-label, val=' + val);
+					$('#' + feature+'-'+styler + '-label').text( val );
+
+				}
+			});
+			
+
+			
+		});
+		
+
+	</script>
+	
+</head>
+
+<body>
+<div id="map-canvas"></div>
+<div id="control-panel">
+	<h1>Map Customizer</h1>
+	<h4>by Yukiko Ishida</h4>
+	<div class="controls">
+		<h3>Road</h3>
+		<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
+		<div feature="road" styler="saturation" class="slider"></div>
+		
+		<span>Lightness: </span> <span id="road-lightness-label" class="feature-label">0</span>
+		<div feature="road" styler="lightness"  class="slider"></div>
+		<div id="accordian"></div>
+		
+	</div>
+</div>
+
+
+</body>
+</html>
