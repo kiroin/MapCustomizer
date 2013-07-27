@@ -1,5 +1,5 @@
 var map;
-
+var lala;
 		
 function initialize() {
 
