@@ -23,7 +23,7 @@ function initialize() {
 		mapTypeId: customMapID,
 		mapTypeControlOptions: {
 			style: google.maps.MapTypeControlStyle.DEFAULT,
-			position: google.maps.ControlPosition.LEFT_TOP,
+			position: google.maps.ControlPosition.RIGHT_TOP,
 			// set to default
 			mapTypeIds: [defaultMapID]
 		},
@@ -32,19 +32,19 @@ function initialize() {
 		},
 		panControl: true,
 		panControlOptions: {
-			position: google.maps.ControlPosition.LEFT_CENTER
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		zoomControl: true,
 		zoomControlOptions: {
-			position: google.maps.ControlPosition.LEFT_CENTER
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		streetViewControl: true,
 		streetViewControlOptions: {
-			position: google.maps.ControlPosition.LEFT_CENTER
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		scaleControl: true,
 		scaleControlOptions: {
-			position: google.maps.ControlPosition.BOTTOM_LEFT
+			position: google.maps.ControlPosition.BOTTOM_RIGHT
 		}
 	};
 	
@@ -126,21 +126,23 @@ function initialize() {
 		var htmlString = "\n";
 		// <div feature="road" styler="saturation" class="slider"></div>
 		//<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
-		htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>'
-		htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
-		
-		htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>'
-		htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
-		
-		htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>'
-		htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
+		htmlString += '<div class="settings">\n';
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
+			
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
+			
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
+		htmlString += '</div>\n';
 		return htmlString;
 	}
 
 	// bind the 'contentChanged event to the accordian action
 	$('.controls').bind('contentChanged', function() {
 		console.log($('.controls'));
-		$( ".accordian" ).accordion({collapsible: true, 'heightStyle':'content', active: false});	
+		$( ".accordian" ).accordion({collapsible: true, 'heightStyle':'content', active: false, activate: toggleSettings});	
 		$( ".slider" ).slider();
 	});
 
@@ -151,4 +153,15 @@ function initialize() {
 	
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
+function toggleSettings(event, ui){
+	var newPanel = ui.newPanel;
+	if(newPanel.length !==0){
+		newPanel.children('span').css({'color': 'red'});
+		console.log (newPanel);
+	}
+	else{
+		console.log ("closed");
+	}
+	//console.log( .accordian("option", "active"));
+	//var active = $( ".selector" ).accordion( "option", "active" );
+}

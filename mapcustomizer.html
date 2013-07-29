@@ -14,7 +14,7 @@
 	></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/dot-luv/jquery-ui.min.css">
 	
 
 	<!-- map features -->
@@ -40,16 +40,49 @@
 			position: absolute;
 			background-color: rgba(255, 255, 255, 0.8);
 			top: 0px;
-			left: 150px;
-			overflow: scroll;
+			left: 30px;
+			overflow: hidden;
 		}
-		h1, h4{
-			padding: 20px;
+		.titlecard{
+			position: absolute;
+			top:0px;
+			height: 100px;
+			width: 100%;
+			z-index: 100;
+			border: 1px solid #ddd;
+			background-color: #ffffff;
+		}
+		.controls-spacer-top{
+			height: 100px;
+			width: 100%;
+		}
+		.controls-spacer-bottom{
+			height: 20px;
+			width: 100%;
+		}
+		.controls{
+			overflow: auto;
+			height: 100%;
+			padding: 0px 20px 0px 0px;
+		}
+		h1{
+			padding: 20px 0 0 20px;
+			margin: 0;
+		}
+		h4{
+			padding: 0 20px;
 			margin: 0;
 		}
 		
 		.slider{
 			width: 200px;
+		}
+		.settings{
+			position: fixed;
+			top: 10%;
+			left: 500px;
+			width: 300px;
+			background-color: rgba(0,0,0,0.5);
 		}
     </style>
 	<script type="text/javascript">
@@ -99,9 +132,12 @@
 <body>
 <div id="map-canvas"></div>
 <div id="control-panel">
+	<div class="titlecard">
 	<h1>Map Customizer</h1>
 	<h4>by Yukiko Ishida</h4>
+	</div>
 	<div class="controls">
+		<div class="controls-spacer-top"></div>
 		<h3>Road</h3>
 		<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
 		<div feature="road" styler="saturation" class="slider"></div>
@@ -109,7 +145,7 @@
 		<span>Lightness: </span> <span id="road-lightness-label" class="feature-label">0</span>
 		<div feature="road" styler="lightness"  class="slider"></div>
 		<div id="accordian"></div>
-		
+		<div class="controls-spacer-bottom"></div>
 	</div>
 </div>
 
