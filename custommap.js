@@ -103,17 +103,16 @@ function initialize() {
 			var features = inFeatures[index];
 						
 			if (typeof features === 'string'){
-				htmlString += '<h3>' + features + '</h3>';
-				htmlString+= '<div>';
-				//htmlString += '<div feature="' + features + '" styler="saturation" class="slider"></div>\n';
-				// <div feature="road" styler="saturation" class="slider"></div>
+				htmlString += '<h3 class="headline">' + features + '</h3>';
+				htmlString+= '<div class="content">';
+				//htmlString += addSliderHml(features);
 				htmlString += addSliderHml(features);
 				htmlString += '</div>';
 			}
 			else{
 				// get title
-				htmlString += '<h3>' + index + '</h3>';
-				htmlString += '<div>\n';
+				htmlString += '<h3 class="headline">' + index + '</h3>';
+				htmlString += '<div class="content">\n';
 					htmlString += addSliderHml(index);
 					htmlString += '<div class="accordian">\n' + mapFeature(features) + '</div>';
 				htmlString+= '</div>\n';
@@ -127,6 +126,8 @@ function initialize() {
 		// <div feature="road" styler="saturation" class="slider"></div>
 		//<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
 		htmlString += '<div class="settings">\n';
+			htmlString += '<h4>' + feature + '</h4> \n'
+			
 			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
 			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
 			
@@ -141,7 +142,6 @@ function initialize() {
 
 	// bind the 'contentChanged event to the accordian action
 	$('.controls').bind('contentChanged', function() {
-		console.log($('.controls'));
 		$( ".accordian" ).accordion({collapsible: true, 'heightStyle':'content', active: false, activate: toggleSettings});	
 		$( ".slider" ).slider();
 	});
@@ -154,14 +154,12 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 function toggleSettings(event, ui){
-	var newPanel = ui.newPanel;
-	if(newPanel.length !==0){
-		newPanel.children('span').css({'color': 'red'});
-		console.log (newPanel);
+			
+	// opening
+	if(ui.newPanel.length !== 0){
+		ui.newPanel.parent('.accordian').parents('.content').children('.settings').hide();
+	}else{
+		ui.oldPanel.parent().parent('.content').children('.settings').show();
 	}
-	else{
-		console.log ("closed");
-	}
-	//console.log( .accordian("option", "active"));
-	//var active = $( ".selector" ).accordion( "option", "active" );
+
 }
