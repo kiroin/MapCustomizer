@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
 	<title>Map Customizer - Yukiko Ishida</title>
 	<meta charset="utf-8">
@@ -7,7 +7,9 @@
 	<script type="text/javascript" 
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9dWUuIWs1AaO_frUNzqGo7pRGtQW-Jug&libraries=places&sensor=false"
 	></script>
-	
+	<!-- angular js -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+
 	<!-- jquery -->
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"
@@ -80,12 +82,16 @@
 		.settings{
 			position: fixed;
 			top: 10%;
-			left: 500px;
+			left: 430px;
+			padding: 20px;
 			width: 300px;
 			background-color: rgba(0,0,0,0.5);
+			border-radius: 0 5px 5px 0;
+			color: #ffffff;
 		}
 		.accordian .ui-widget-content {
 			background-image: none;
+			padding: 0 20px;
 		}
     </style>
 	<script type="text/javascript">
@@ -136,11 +142,13 @@
 <div id="map-canvas"></div>
 <div id="control-panel">
 	<div class="titlecard">
-	<h1>Map Customizer</h1>
+	<h1>Map Customizer</h1>{{stuff}}!
 	<h4>by Yukiko Ishida</h4>
 	</div>
-	<div class="controls">
+	<div class="controls" ng-model="yourName">
 		<div class="controls-spacer-top"></div>
+		
+		<input type="text" ng-model="stuff" placeholder="Enter a name here"> 
 		<h3>Road</h3>
 		<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
 		<div feature="road" styler="saturation" class="slider"></div>
@@ -150,8 +158,11 @@
 		<div id="accordian"></div>
 		<div class="controls-spacer-bottom"></div>
 	</div>
+	
 </div>
 
 
 </body>
+
+
 </html>

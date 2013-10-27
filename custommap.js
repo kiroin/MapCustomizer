@@ -126,15 +126,24 @@ function initialize() {
 		// <div feature="road" styler="saturation" class="slider"></div>
 		//<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
 		htmlString += '<div class="settings">\n';
-			htmlString += '<h4>' + feature + '</h4> \n'
+			htmlString += '<h4>' + feature + '</h4> \n';
 			
-			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<div class="feature-tabs"><ul>\n';
+			htmlString += '<li><a href="#feature-label">Label</a></li>\n';
+			htmlString += '<li><a href="#feature-outline">outline</a></li>\n';
+			htmlString += '<li><a href="#feature-fill">fill</a></li>\n';
+			htmlString += '</ul>\n';
+			htmlString += '<div id="feature-label">dadadad</div><div id="feature-outline">ouou</div><div id="feature-fill">fififdad</div></div>\n';
+			
+			
+			
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n';
 			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
 			
-			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n';
 			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
 			
-			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n'
+			htmlString += '<span>Saturation</span> <span id="' + feature + '-saturation-label" class="feature-label">0</span>\n';
 			htmlString += '<div feature="' + feature + '" styler="saturation" class="slider"></div>\n';
 		htmlString += '</div>\n';
 		return htmlString;
@@ -142,8 +151,16 @@ function initialize() {
 
 	// bind the 'contentChanged event to the accordian action
 	$('.controls').bind('contentChanged', function() {
-		$( ".accordian" ).accordion({collapsible: true, 'heightStyle':'content', active: false, activate: toggleSettings});	
+		$( ".accordian" ).accordion({
+			collapsible: true, 
+			'heightStyle':'content', 
+			active: false, 
+			activate: toggleSettings
+		});	
 		$( ".slider" ).slider();
+		$( ".feature-tabs" ).tabs({
+			collapsible: true
+		   });
 	});
 
 	$('#accordian').html('<div class="accordian">'+ mapFeature(mapFeatures) + '</div>');
@@ -157,9 +174,11 @@ function toggleSettings(event, ui){
 			
 	// opening
 	if(ui.newPanel.length !== 0){
-		ui.newPanel.parent('.accordian').parents('.content').children('.settings').hide();
+		ui.newPanel.fadeIn(300);
+		ui.newPanel.parent('.accordian').parents('.content').children('.settings').fadeOut();
 	}else{
-		ui.oldPanel.parent().parent('.content').children('.settings').show();
+		ui.oldPanel.fadeOut(300);
+		ui.oldPanel.parent().parent('.content').children('.settings').fadeIn(300);
 	}
 
 }
