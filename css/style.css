@@ -1,0 +1,68 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	font-family: arial, sans-serif;
+	height: 100%;
+	width: 100%;
+}
+#map-canvas{
+	height: 100%;
+	width: 100%;
+}
+#control-panel{
+	width: 400px;
+	height: 100%;
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.8);
+	top: 0px;
+	left: 30px;
+	overflow: hidden;
+}
+.titlecard{
+	position: absolute;
+	top:0px;
+	height: 100px;
+	width: 100%;
+	z-index: 100;
+	border: 1px solid #ddd;
+	background-color: #ffffff;
+}
+.controls-spacer-top{
+	height: 100px;
+	width: 100%;
+}
+.controls-spacer-bottom{
+	height: 20px;
+	width: 100%;
+}
+.controls{
+	overflow: auto;
+	height: 100%;
+	padding: 0px 20px 0px 0px;
+}
+h1{
+	padding: 20px 0 0 20px;
+	margin: 0;
+}
+h4{
+	padding: 0 20px;
+	margin: 0;
+}
+
+.slider{
+	width: 200px;
+}
+.settings{
+	position: fixed;
+	top: 10%;
+	left: 430px;
+	padding: 20px;
+	width: 300px;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 0 5px 5px 0;
+	color: #ffffff;
+}
+.accordian .ui-widget-content {
+	background-image: none;
+	padding: 0 20px;
+}

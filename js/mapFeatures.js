@@ -26,7 +26,7 @@ mapFeatures = {
 		'road.arterial': 'road.arterial',
 		'road.highway':
 		{
-			'road.highway.controlled_access': 'road.highway.controlled_access'
+			'road.highway.controlled_access': 'road.highway.controlled_access',
 		},
 		'road.local': 'road.local'
 	},
