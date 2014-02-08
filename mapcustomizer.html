@@ -1,152 +1,29 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="mapCustomizer">
 <head>
 	<title>Map Customizer - Yukiko Ishida</title>
 	<meta charset="utf-8">
-	<!-- Google maps api -->
-	<script type="text/javascript" 
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9dWUuIWs1AaO_frUNzqGo7pRGtQW-Jug&libraries=places&sensor=false"
-	></script>
-	<!-- angular js -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-
-	<!-- jquery -->
-	<script type="text/javascript"
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"
-	></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/dot-luv/jquery-ui.min.css">
-	
-
-	<!-- map features -->
-	<script type="text/javascript" src="mapFeatures.js"></script>
-	<script type="text/javascript" src="custommap.js"></script>
-	
-	
-	<style type="text/css">
-		html, body{
-			margin: 0;
-			padding: 0;
-			font-family: arial, sans-serif;
-			height: 100%;
-			width: 100%;
-		}
-		#map-canvas{
-			height: 100%;
-			width: 100%;
-		}
-		#control-panel{
-			width: 400px;
-			height: 100%;
-			position: absolute;
-			background-color: rgba(255, 255, 255, 0.8);
-			top: 0px;
-			left: 30px;
-			overflow: hidden;
-		}
-		.titlecard{
-			position: absolute;
-			top:0px;
-			height: 100px;
-			width: 100%;
-			z-index: 100;
-			border: 1px solid #ddd;
-			background-color: #ffffff;
-		}
-		.controls-spacer-top{
-			height: 100px;
-			width: 100%;
-		}
-		.controls-spacer-bottom{
-			height: 20px;
-			width: 100%;
-		}
-		.controls{
-			overflow: auto;
-			height: 100%;
-			padding: 0px 20px 0px 0px;
-		}
-		h1{
-			padding: 20px 0 0 20px;
-			margin: 0;
-		}
-		h4{
-			padding: 0 20px;
-			margin: 0;
-		}
-		
-		.slider{
-			width: 200px;
-		}
-		.settings{
-			position: fixed;
-			top: 10%;
-			left: 430px;
-			padding: 20px;
-			width: 300px;
-			background-color: rgba(0,0,0,0.5);
-			border-radius: 0 5px 5px 0;
-			color: #ffffff;
-		}
-		.accordian .ui-widget-content {
-			background-image: none;
-			padding: 0 20px;
-		}
-    </style>
-	<script type="text/javascript">
-		$(function() {
-			
-			$( ".slider" ).slider({
-				min: -100, 
-				max: 100, 
-				value: 0, 
-				slide: function( event, ui ) {
-					var val = ui.value;
-					var styler, feature;
-					var styles;
-					//console.log('#' + event.target.id + '-label, val=' + val);
-					
-					//console.log(event.target.getAttribute('styler'));
-					styler = event.target.getAttribute('styler');
-					
-					//console.log(event.target.getAttribute('feature'));
-					feature = event.target.getAttribute('feature');
-										
-					var temp = {};
-					temp[styler] = val;
-					
-					styles = [{
-						featureType: feature,
-						stylers: [ temp ]
-					}];
-					// console.log(styles);
-					map.setOptions({'styles': styles });
-					
-					// console.log('#' + feature+'-'+styler + '-label, val=' + val);
-					$('#' + feature+'-'+styler + '-label').text( val );
-
-				}
-			});
-			
-
-			
-		});
-		
-
-	</script>
-	
+	<link type="text/css" rel="stylesheet" href="css/style.css"></link>
 </head>
 
 <body>
 <div id="map-canvas"></div>
 <div id="control-panel">
 	<div class="titlecard">
-	<h1>Map Customizer</h1>{{stuff}}!
+	<h1>Map Customizer</h1>
 	<h4>by Yukiko Ishida</h4>
 	</div>
-	<div class="controls" ng-model="yourName">
+	<div class="controls"  ng-controller="FeaturePanel as panel">
 		<div class="controls-spacer-top"></div>
+
+			<p>thingy: {{panel.panelTitle}}</p>
+		<accordion>
+			<accordion-group heading="{{key}}" ng-repeat="(key, attribute) in panel.mapdata">
+      			{{attribute}}
+    		</accordion-group>
+		</accordion>
+		<!--
+		
 		
 		<input type="text" ng-model="stuff" placeholder="Enter a name here"> 
 		<h3>Road</h3>
@@ -157,12 +34,45 @@
 		<div feature="road" styler="lightness"  class="slider"></div>
 		<div id="accordian"></div>
 		<div class="controls-spacer-bottom"></div>
+	-->
 	</div>
 	
 </div>
 
 
 </body>
+	<!-- angular js -->
+	<script type="text/javascript" src="libraries/angular/angular.js"></script>
+	<!-- <script type="text/javascript" src="libraries/angular/angular.min.js"></script> -->
+	
+	<!-- bootstrap -->
+	
+	<link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.css">
+	<!-- ui bootstrap -->
+	<script type="text/javascript" src="libraries/ui-bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+<!--	<script type="text/javascript" src="libraries/ui-bootstrap/ui-bootstrap-0.10.0.min.js"></script> -->
+
+	<!-- Google maps api -->
+	<script type="text/javascript" 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9dWUuIWs1AaO_frUNzqGo7pRGtQW-Jug&libraries=places&sensor=false"
+	></script>
 
 
+	<!-- jquery -->
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"
+	></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	
+	<!-- stylesheets -->
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/dot-luv/jquery-ui.min.css">
+	
+	<!-- app -->
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="shared/controllers.js"></script>
+
+	<!-- map features -->
+	<script type="text/javascript" src="data/mapFeatures.js"></script>
+	<script type="text/javascript" src="custommap.js"></script>
+	<script type="text/javascript" src="partials/slider.js"></script>
 </html>
