@@ -3,38 +3,36 @@
 <head>
 	<title>Map Customizer - Yukiko Ishida</title>
 	<meta charset="utf-8">
+	<meta http-equiv="no-cache" content="public">
 	<link type="text/css" rel="stylesheet" href="css/style.css"></link>
 </head>
 
 <body>
-<div id="map-canvas"></div>
+<div id="map-canvas" ng-controller="MapCanvas"></div>
 <div id="control-panel">
-	<div class="titlecard">
-	<h1>Map Customizer</h1>
-	<h4>by Yukiko Ishida</h4>
-	</div>
-	<div class="controls"  ng-controller="FeaturePanel as panel">
-		<div class="controls-spacer-top"></div>
 
-			<p>thingy: {{panel.panelTitle}}</p>
+	<div class="titlecard">
+		<h1>Map Customizer</h1>
+		<h4 ng-controller="FeatureTitleBar as title">
+			 sthing {{title.thing}} {{title.stuff}}
+		</h4>
+		<h4>by Yukiko Ishida</h4>
+	</div>
+
+	<div class="controls"  ng-controller="FeaturePanel as panel">
+		<div class="controls-spacer-top">
+		</div>
+
+		<p>{{panel.mapdata[0].visible}} thingy: {{panel.panelTitle}}</p>
+		<div class="control-panel">
+			<h2 ng-repeat="controlpanel in panel.mapdata | filter: panel.ispanelopen"> {{controlpanel.label}} is open!</h2>
+		</div>
+
 		<accordion>
-			<accordion-group heading="{{key}}" ng-repeat="(key, attribute) in panel.mapdata">
-      			{{attribute}}
-    		</accordion-group>
+			<accordion-group heading="{{key.label}}" ng-repeat="key in panel.mapdata" is-open="key.isOpen">
+				<div ng-include="'partials/featurerenderer.html'"></div>
+			</accordion-group>
 		</accordion>
-		<!--
-		
-		
-		<input type="text" ng-model="stuff" placeholder="Enter a name here"> 
-		<h3>Road</h3>
-		<span>Saturation: </span> <span id="road-saturation-label" class="feature-label">0</span>
-		<div feature="road" styler="saturation" class="slider"></div>
-		
-		<span>Lightness: </span> <span id="road-lightness-label" class="feature-label">0</span>
-		<div feature="road" styler="lightness"  class="slider"></div>
-		<div id="accordian"></div>
-		<div class="controls-spacer-bottom"></div>
-	-->
 	</div>
 	
 </div>
@@ -43,6 +41,7 @@
 </body>
 	<!-- angular js -->
 	<script type="text/javascript" src="libraries/angular/angular.js"></script>
+	<script type="text/javascript" src="libraries/angular/angular-resource.js"></script>
 	<!-- <script type="text/javascript" src="libraries/angular/angular.min.js"></script> -->
 	
 	<!-- bootstrap -->
@@ -60,19 +59,18 @@
 
 	<!-- jquery -->
 	<script type="text/javascript"
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"
+		src="libraries/jquery/jquery-1.11.0.min.js"
 	></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript" src="libraries/jquery.ui/jquery-ui.min.js"></script>
 	
 	<!-- stylesheets -->
 	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/dot-luv/jquery-ui.min.css">
 	
 	<!-- app -->
 	<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="shared/services.js"></script>
 	<script type="text/javascript" src="shared/controllers.js"></script>
 
 	<!-- map features -->
-	<script type="text/javascript" src="data/mapFeatures.js"></script>
-	<script type="text/javascript" src="custommap.js"></script>
-	<script type="text/javascript" src="partials/slider.js"></script>
+	<!--<script type="text/javascript" src="shared/custommap.js"></script>-->
 </html>

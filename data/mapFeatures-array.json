@@ -1,0 +1,163 @@
+[
+	{	
+		"label": "all",
+		"property": "all"
+	},
+	{
+		"label": "administrative",
+		"property": "administrative",
+		"nodes":
+		[
+			{
+				"label": "country",
+				"property": "administrative.country"
+			},
+			{
+				"label": "land parcel",
+				"property": "administrative.land_parcel"
+			},
+			{
+				"label": "locality",
+				"property": "administrative.locality"
+			},
+			{
+				"label":"neighborhood",
+				"property":"administrative.neighborhood"
+			},
+			{
+				"label": "province",
+				"property": "administrative.province"
+			}
+		]
+	},
+	{
+		"label": "landscape",
+		"property": "landscape",
+		"nodes":
+		[
+			{
+				"label": "man made",
+				"property": "landscape.man_made"
+			},
+			{
+				"label": "natural",
+				"property": "landscape.natural",
+				"nodes":
+				[
+					{
+						"label": "landcover",
+						"property": "landscape.natural.landcover"
+					},
+					{
+						"label": "terrain",
+						"property": "landscape.natural.terrain"
+					}
+				]
+			}
+		]
+	},
+	{
+		"label": "water",
+		"property": "water"
+	},
+	{
+		"label": "road",
+		"property": "road",
+		"nodes": 
+		[
+			{
+				"label": "arterial",
+				"property": "road.arterial"
+			},
+			{
+				"label": "highway",
+				"property": "road.highway",
+				"nodes":
+				[
+					{
+						"label":"controlled access",
+						"property": "road.highway.controlled_access"
+					}
+				]
+			},
+			{
+				"label": "local",
+				"property": "road.local"
+			}
+		]
+	},
+	{
+		"label": "transit",
+		"property": "transit",
+		"nodes": 
+		[
+			{
+				"label": "line",
+				"property": "transit.line"
+			},
+			{
+				"label": "station",
+				"property": "transit.station",
+				"nodes":
+				[
+					{
+						"label": "airport",
+						"property": "transit.station.airport"
+					},
+					{
+						"label": "bus",
+						"property": "transit.station.bus"
+					},
+					{
+						"label": "rail",
+						"property": "transit.station.rail"
+					}
+				]
+			}
+		]
+	},
+	{
+		"label": "poi",
+		"property": "poi",
+		"nodes":
+		[
+			{
+				"label": "attraction",
+				"property" :"poi.attraction"
+			},
+			{
+				"label": "business",
+				"property":"poi.business"
+			},
+			{
+				"label": "business",
+				"property":"poi.business"
+			},
+			{
+				"label": "government",
+				"property":"poi.government"
+			},
+			{
+				"label": "medical",
+				"property":"poi.medical"
+			},
+			{
+				"label": "park",
+				"property":"poi.park"
+			},
+			{
+				"label": "place of worship",
+				"property":"poi.place_of_worship"
+			},
+			{
+				"label": "school",
+				"property":"poi.school"
+			},
+			{
+				"label": "sports complex",
+				"property":"poi.sports_complex"
+			}
+		]
+	}
+]
+

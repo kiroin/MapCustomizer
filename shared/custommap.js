@@ -148,36 +148,8 @@ function initialize() {
 		return htmlString;
 	}
 
-	// bind the 'contentChanged event to the accordian action
-	$('.controls').bind('contentChanged', function() {
-		$( ".accordian" ).accordion({
-			collapsible: true, 
-			'heightStyle':'content', 
-			active: false, 
-			activate: toggleSettings
-		});	
-		$( ".slider" ).slider();
-		$( ".feature-tabs" ).tabs({
-			collapsible: true
-		   });
-	});
 
-	$('#accordian').html('<div class="accordian">'+ mapFeature(mapFeatures) + '</div>');
-	$('.controls').trigger('contentChanged')
 	
 }
 	
 google.maps.event.addDomListener(window, 'load', initialize);
-
-function toggleSettings(event, ui){
-			
-	// opening
-	if(ui.newPanel.length !== 0){
-		ui.newPanel.fadeIn(300);
-		ui.newPanel.parent('.accordian').parents('.content').children('.settings').fadeOut();
-	}else{
-		ui.oldPanel.fadeOut(300);
-		ui.oldPanel.parent().parent('.content').children('.settings').fadeIn(300);
-	}
-
-}

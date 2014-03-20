@@ -1,0 +1,14 @@
+
+<div>
+	<h3>Panel contents here!</h3>
+	<label>
+		<input ng-model="key.visible" type="checkbox">  visible
+	</label>
+
+</div>
+
+<accordion ng-if="key.nodes">
+	<accordion-group heading="{{key.label}}" ng-repeat="key in key.nodes" is-open="key.isOpen">
+		<div ng-include="'partials/featurerenderer.html'"></div>
+	</accordion-group>
+</accordion>
