@@ -25,7 +25,8 @@
 
 		<p>{{panel.mapdata[0].visible}} thingy: {{panel.panelTitle}}</p>
 		<div class="control-panel">
-			<h2 ng-repeat="controlpanel in panel.mapdata | filter: panel.ispanelopen"> {{controlpanel.label}} is open!</h2>
+			<!-- shows the current open parent level panel -->
+			<h2 ng-repeat="controlpanel in panel.mapdata | filter: {isOpen:true}"> {{controlpanel.label}} is open!</h2>
 		</div>
 
 		<accordion>

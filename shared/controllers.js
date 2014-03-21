@@ -2,74 +2,67 @@
 mapCustomizerApp.controller( 'FeatureTitleBar', ['$scope', 'panelControls',
 		function($scope, panelControls) {
 			this.thing = "hi";
-			// this.mapFeatures = panelControls.getMapFeatures();
-			// console.log(panelControls._data);
-			//this.stuff="haha";
-			
-			// var promise = panelControls.get();
-			// promise.then(
-			// 	function (panelControls){
-			// 		this.stuff = panelControls;
-			// 		console.log(this.stuff);
-			// 	}, function(reason){
-			// 		alert("failed " + reason);
-			// 	});
-			// console.log(this.stuff);
-			this.stuff = panelControls.query();
+			//this.stuff = panelControls.query();
 	}]);
 
-mapCustomizerApp.controller( 'FeaturePanel', ['$scope', '$http',
-		function($scope, $http) {
-			this.panelTitle = "Map attributes";
+mapCustomizerApp.controller( 'FeaturePanel', ['$scope', '$http', 'panelControls',
+		function($scope, $http, panelControls) {
+			var _self = this;
+
+			
 			this.mapdata = {
 			// 	road: "black",
 			// 	water: "blue",
 			// 	cities: "big"
 			};
-			var _self = this;
 
-			function _successCallback(data, status, headers, config) {
-				_self.mapdata = data;
-			}
-
-
-			function _findOpenPanel (feature) {
+			
+			_self.fn = {
+				_clickedPanel: function(title){
+					if(_self.openedPanelTitle === undefined){
+						_self.openedPanelTitle = title;
+					} else {
+						_self.openedPanelTitle = undefined;
+					}
+				},
+				_findOpenPanel: function (feature) {
 				
-				if(feature.nodes){
-					for (var i=0; i< feature.length; i++){
-							_findOpenPanel(feature.nodes[i]);
+					if(feature.nodes){
+						console.log(feature.name + " has nodes");
+						for (var i=0; i< feature.length; i++){
+							_self.fn._findOpenPanel(feature.nodes[i]);
 						}
-				}
-				else if(feature.isOpen === true){
-					console.log(feature)
-					return feature;
-				}
+					}
+					else if(feature.isOpen === true){
+						console.log(feature)
+						return feature;
+					}
+				},
+				
+				_ispanelopen: function(){
+					return false;
+				},
 
-			}
-			this.ispanelopen = function(){
-				return false;
-			}
-			function init(){
-				$http({method: 'GET', url: 'data/mapFeatures-array.json'}).
-			  		success( _successCallback ).
-			  		error(function(data, status, headers, config) {
-						// called asynchronously if an error occurs
-						// or server returns response with an error status.
-						console.log(headers);
-				});
-
-				_self.openPanel = function(){
-					// _self.mapdata
+				_openPanel: function(){
 					var open  = {};
 					for (var i=0; i< _self.mapdata.length; i++){
-						open = _findOpenPanel(_self.mapdata[i]);
+						console.log("checking" + _self.mapdata[i]);
+						open = _self.fn._findOpenPanel(_self.mapdata[i]);
 					}
-					//console.log("opening: "+ open.label);
+					console.log("opening: "+ open.label);
 					return open;
+				},
+
+				init: function(){
+					_self.mapdata = panelControls.query();
+					
 				}
+
 			}
 
-			init();
+			_self.fn.init();
+			_self.panelTitle = _self.fn._openPanel();
+
 
 	}]);
 
