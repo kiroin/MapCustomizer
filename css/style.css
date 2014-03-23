@@ -89,7 +89,7 @@ html, body{
 .titlecard{
 	position: absolute;
 	top:0px;
-	height: 100px;
+	height: auto;
 	width: 100%;
 	z-index: 100;
 	border: 1px solid #ddd;
