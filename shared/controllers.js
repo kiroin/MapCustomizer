@@ -8,30 +8,82 @@ mapCustomizerApp.controller( 'FeatureTitleBar', ['$scope', 'panelControls',
 mapCustomizerApp.controller( 'FeaturePanel', ['$rootScope', '$scope', '$http', 'panelControls',
 		function($rootScope, $scope, $http, panelControls) {
 			var _self = this;
-
-			$scope.setStyle = function (panel){
-				// console.log(panel);
+			var _scope = $scope;
+			// $rootScope.map.styles;
+			$scope.setStyle = function (){
+				//console.log(_self);
 				var map = $rootScope.map;
-				var featureType = panel.property;
-				var checkbox = panel.visible;
-				var visibility = "";
-				if(checkbox == true){
-					visibility = "on";
-				} else {
-					visibility = "off";
+				// properties don't show up until checked...
+
+				// var featureType = panel.property;
+				// var checkbox = panel.visible;
+				// var visibility = "";
+				// if styles array isn't defined, define it
+				if(!map.hasOwnProperty('styles')){
+					console.log("styles");
+					map.styles = [];
+
 				}
-				// console.log(featureType + ", " + visibility);
-				var styles = [{
-					featureType:  featureType,
-					stylers: [
-						{ visibility: visibility }
-					]
-				}];
-				
+				// var open  = {};
+				var styles = map.styles;
+
+				for (var i=0; i<_self.mapdata.length; i++){
+					var feature = _self.mapdata[i];
+					var label = _self.mapdata[i].property;
+					console.log("--- "+label);
+
+					
+					// if feature styling doesn't exist, add it.
+					if(styles[i] === undefined) {
+						styles[i] = {featureType: label, stylers: []};
+					}
+					
+					// geometry 
+					if(feature.hasOwnProperty('geometry')){
+						console.log(styles[i]);
+
+						// does this have feature? if(featureType)
+						styles[i] = {featureType: label, stylers: []};
+
+						if (feature.geometry.hasOwnProperty('visible')){
+
+							console.log("thing visible: " + !feature.geometry.visible);
+							var visibility = { visibility : _self.fn._visibilityCheck(feature.geometry.visible)};
+							
+							styles[i].stylers.push( visibility);
+							console.log("styles:" + styles);
+							console.log(visibility);
+						}
+
+					}
+				}
+
+
+				// if(checkbox == true){
+				// 	visibility = "on";
+				// } else {
+				// 	visibility = "off";
+				// }
+				// // console.log(featureType + ", " + visibility);
+				// var styles = [{
+				// 	featureType:  featureType,
+				// 	stylers: [
+				// 		{ visibility: visibility }
+				// 	]
+				// }];
+
+				console.log(styles);
 				map.setOptions({styles: styles});
 			}
-
 			_self.fn = {
+				_visibilityCheck: function(input){
+					if(input != true){
+						return "on";
+					}
+					else {
+						return "off";
+					}
+				},
 				_clickedPanel: function(title){
 					// remove?
 					if(_self.openedPanelTitle === undefined){
@@ -67,7 +119,7 @@ mapCustomizerApp.controller( 'FeaturePanel', ['$rootScope', '$scope', '$http', '
 						console.log("checking" + _self.mapdata[i]);
 						open = _self.fn._findOpenPanel(_self.mapdata[i]);
 					}
-					console.log("opening: "+ open.label);
+					// console.log("opening: "+ open.label);
 					return open;
 				},
 
@@ -79,7 +131,6 @@ mapCustomizerApp.controller( 'FeaturePanel', ['$rootScope', '$scope', '$http', '
 			}
 
 			_self.fn.init();
-			_self.panelTitle = _self.fn._openPanel();
 
 
 	}]);
@@ -131,7 +182,7 @@ mapCustomizerApp.controller('MapCanvas', ['$rootScope', '$scope',
 				// create our map on the dom using defaultMapOptions
 				
 				var _self = $rootScope.map;
-				console.log(_self.defaultMapOptions);
+				// console.log(_self.defaultMapOptions);
 				thing = new google.maps.Map(document.getElementById('map-canvas'), _self.defaultMapOptions);
 				// set the id and type
 				thing.mapTypes.set(_defaultMapId, _defaultMapType);

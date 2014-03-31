@@ -1,8 +1,13 @@
 
 <div>
-	<h3>Panel contents here!</h3>
+	<h4 class="geometry">Geometry</h4>
 	<label>
-		<input ng-model="key.visible" type="checkbox" ng-click="setStyle(key, $scope)">  visible
+		<input ng-model="key.geometry.visible" type="checkbox" ng-click="setStyle()"  class="mapstyle">  visible
+	</label>
+
+	<h4 class="labels">labels</h4>
+	<label>
+		<input ng-model="key.labels.visible" type="checkbox" ng-click="setStyle()" class="mapstyle">  visible
 	</label>
 
 </div>
