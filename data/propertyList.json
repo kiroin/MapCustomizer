@@ -1,0 +1,13 @@
+[
+	{
+		"selector" : 
+		[
+			"label-fill",
+			"label-geometry"
+		],
+		"styles":
+		[
+			"visibility"
+		]
+	}
+]

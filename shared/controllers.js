@@ -138,12 +138,21 @@ mapCustomizerApp.controller( 'FeaturePanel', ['$rootScope', '$scope', '$http', '
 
 
 
-mapCustomizerApp.controller('MapCanvas', ['$rootScope', '$scope',
-	function ($rootScope, $scope) {
-		var _defaultMapId = "default",
+mapCustomizerApp.controller('MapCanvas', ['$rootScope', '$scope', 'panelControls', 'propertyList',
+	function ($rootScope, $scope, panelControls, propertyList) {
+		var _self = this,
+			_defaultMapId = "default",
 			_defaultMapType = new google.maps.StyledMapType([], {name:'Base'}),
 			_customMapId = "customMapID",
 			thing = "";
+
+		/*
+		 $rootScope.map
+			defaultMapOptions // object // contains default map options
+			init // function // initializes $rootscrop.map.gMap
+
+		*/
+
 		$rootScope.map = {
 
 			defaultMapOptions: {
@@ -177,18 +186,40 @@ mapCustomizerApp.controller('MapCanvas', ['$rootScope', '$scope',
 					position: google.maps.ControlPosition.BOTTOM_RIGHT
 				}
 			},
-			// intialize
+
+			// intialize map
 			init: function (){
+
 				// create our map on the dom using defaultMapOptions
-				
-				var _self = $rootScope.map;
-				// console.log(_self.defaultMapOptions);
-				thing = new google.maps.Map(document.getElementById('map-canvas'), _self.defaultMapOptions);
+				var _gMap = new google.maps.Map(document.getElementById('map-canvas'), _self.defaultMapOptions);
+
 				// set the id and type
-				thing.mapTypes.set(_defaultMapId, _defaultMapType);
-				//console.log(thing);
-				$rootScope.map = thing;
+				_gMap.mapTypes.set(_defaultMapId, _defaultMapType);
+				$rootScope.map.gMap = _gMap;
+
+				// get initial featureList
+				$rootScope.map.featureList = panelControls.query();
+				$rootScope.map.propertyList = propertyList.query();
+				console.log($rootScope.map.featureList);
+
+
+				// recursively set styleList. This adds properties to each feature.
+				
+				var _featureList = $rootScope.map.featureList;
+				var _propertyList = $rootScope.map.propertyList;
+				var _styleList = _featureList;
+
+				function setStyle (_styleList){
+					_styleList.styles = _propertyList;
+					if(_styleList.hasOwnProperty("nodes")) {
+						setStyle(_styleList.nodes);
+					}
+				}
+				setStyle(_styleList);
+				console.log(_styleList);
 			},
+
+
 			// set red map
 			redmap: function() {
 				// set up our default map options
