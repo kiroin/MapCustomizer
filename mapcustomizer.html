@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html ng-app="mapCustomizer">
+<html>
 <head>
 	<title>Map Customizer - Yukiko Ishida</title>
 	<meta charset="utf-8">
 	<meta http-equiv="no-cache" content="public">
-	<link type="text/css" rel="stylesheet" href="css/style.css"></link>
+	<link type="text/css" rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body ng-view>
+
+
 <div id="map-canvas" ng-controller="MapCanvas"></div>
 <div id="control-panel">
 
@@ -19,7 +21,7 @@
 		<h4>by Yukiko Ishida</h4>
 	</div>
 
-	<div class="controls"  ng-controller="FeaturePanel as panel">
+	<div class="controls" ng-controller="FeaturePanel as panel">
 		<div class="controls-spacer-top">
 		</div>
 
@@ -42,7 +44,7 @@
 </body>
 
 	<!-- Require -->
-	<script type="text/javascript" data-main="app" src="libraries/requirejs/require.js"></script>
+	<script type="text/javascript" src="js/require.js" data-main="js/main.js"></script>
 
 
 
